@@ -1,8 +1,9 @@
+// app/page.tsx
 "use client";
 
 import { generateId } from "ai";
 import { useRouter } from "next/navigation";
-import { useCallback, ViewTransition } from "react";
+import { useCallback } from "react";
 import ChatInput, { type onSendMessageProps } from "@/components/chat-input";
 import Footer from "@/components/footer";
 import { TextEffect } from "@/components/ui/text-effect";
@@ -49,13 +50,11 @@ export default function Home() {
             How can I assist you today?
           </TextEffect>
         </div>
-        <ViewTransition name="chat-input">
-          <ChatInput
-            models={models.filter((i) => i.type === "Text Generation")}
-            className="mx-auto max-w-3xl"
-            onSendMessage={onSendMessage}
-          />
-        </ViewTransition>
+        <ChatInput
+          models={models.filter((i) => i.type === "Text Generation")}
+          className="mx-auto max-w-3xl"
+          onSendMessage={onSendMessage}
+        />
       </div>
 
       <Footer classname="mt-auto mb-1" />
