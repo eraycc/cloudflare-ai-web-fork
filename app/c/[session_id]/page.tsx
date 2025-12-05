@@ -1,3 +1,4 @@
+// app/c/[session_id]/page.tsx
 "use client";
 
 import { useChat } from "@ai-sdk/react";
@@ -12,7 +13,6 @@ import {
   useEffect,
   useRef,
   useState,
-  ViewTransition,
 } from "react";
 import { toast } from "sonner";
 import AuthDialog from "@/components/auth-dialog";
@@ -190,33 +190,29 @@ const Page = () => {
 
       <div className="mt-auto pb-1 space-y-1 absolute bottom-0 left-0 right-0 bg-linear-to-t from-background to-transparent px-2">
         {showToBottom && (
-          <ViewTransition>
-            <Button
-              size="icon"
-              variant="outline"
-              className="rounded-full shadow-xl absolute left-1/2 -translate-x-1/2 -top-10 z-10"
-              onClick={() => {
-                chatListRef.current?.scrollTo({
-                  top: chatListRef.current.scrollHeight,
-                  behavior: "smooth",
-                });
-              }}
-            >
-              <ChevronDown />
-            </Button>
-          </ViewTransition>
+          <Button
+            size="icon"
+            variant="outline"
+            className="rounded-full shadow-xl absolute left-1/2 -translate-x-1/2 -top-10 z-10"
+            onClick={() => {
+              chatListRef.current?.scrollTo({
+                top: chatListRef.current.scrollHeight,
+                behavior: "smooth",
+              });
+            }}
+          >
+            <ChevronDown />
+          </Button>
         )}
 
-        <ViewTransition name="chat-input">
-          <ChatInput
-            models={models.filter((i) => i.type === "Text Generation")}
-            className="mx-auto max-w-3xl bg-background shadow-xl"
-            onSendMessage={onSendMessage}
-            status={status}
-            onStop={stop}
-            onRetry={regenerate}
-          />
-        </ViewTransition>
+        <ChatInput
+          models={models.filter((i) => i.type === "Text Generation")}
+          className="mx-auto max-w-3xl bg-background shadow-xl"
+          onSendMessage={onSendMessage}
+          status={status}
+          onStop={stop}
+          onRetry={regenerate}
+        />
         <Footer />
       </div>
 
