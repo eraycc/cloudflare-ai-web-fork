@@ -1,3 +1,4 @@
+// app/image/page.tsx
 "use client";
 
 import { ChevronDown } from "lucide-react";
@@ -7,7 +8,6 @@ import {
   useEffect,
   useRef,
   useState,
-  ViewTransition,
 } from "react";
 import AuthDialog from "@/components/auth-dialog";
 import ChatInput, { type onSendMessageProps } from "@/components/chat-input";
@@ -75,33 +75,29 @@ const Page = () => {
 
       <div className="mt-auto pb-1 space-y-1 absolute bottom-0 left-0 right-0 bg-linear-to-t from-background to-transparent px-2">
         {showToBottom && (
-          <ViewTransition>
-            <Button
-              size="icon"
-              variant="outline"
-              className="rounded-full shadow-xl absolute left-1/2 -translate-x-1/2 -top-10 z-10"
-              onClick={() => {
-                chatListRef.current?.scrollTo({
-                  top: chatListRef.current.scrollHeight,
-                  behavior: "smooth",
-                });
-              }}
-            >
-              <ChevronDown />
-            </Button>
-          </ViewTransition>
+          <Button
+            size="icon"
+            variant="outline"
+            className="rounded-full shadow-xl absolute left-1/2 -translate-x-1/2 -top-10 z-10"
+            onClick={() => {
+              chatListRef.current?.scrollTo({
+                top: chatListRef.current.scrollHeight,
+                behavior: "smooth",
+              });
+            }}
+          >
+            <ChevronDown />
+          </Button>
         )}
 
-        <ViewTransition name="chat-input">
-          <ChatInput
-            models={models.filter((i) => i.type === "Text to Image")}
-            className="mx-auto max-w-3xl bg-background shadow-xl"
-            onSendMessage={onSendMessage}
-            status={status}
-            modalKey="CF_AI_MODEL_IMAGE"
-            onRetry={regenerate}
-          />
-        </ViewTransition>
+        <ChatInput
+          models={models.filter((i) => i.type === "Text to Image")}
+          className="mx-auto max-w-3xl bg-background shadow-xl"
+          onSendMessage={onSendMessage}
+          status={status}
+          modalKey="CF_AI_MODEL_IMAGE"
+          onRetry={regenerate}
+        />
         <Footer />
       </div>
 
